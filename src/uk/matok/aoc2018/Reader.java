@@ -44,4 +44,17 @@ public class Reader
 
         return values;
     }
+
+    public String readLine() {
+        try {
+            InputStream input = this.getClass().getResourceAsStream(this.fileName);
+            InputStreamReader isr = new InputStreamReader(input);
+            BufferedReader reader = new BufferedReader(isr);
+            return reader.readLine();
+        } catch (IOException exception) {
+            System.out.println("Oh Nooo...");
+        }
+
+        return "";
+    }
 }

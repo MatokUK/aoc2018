@@ -35,5 +35,4 @@ public class Day3 {
 
         return fabric;
     }
-
 }
