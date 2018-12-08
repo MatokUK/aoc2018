@@ -30,4 +30,18 @@ public class Reader
 
         return values;
     }
+
+    public ArrayList<String> readS() throws IOException {
+        ArrayList<String> values = new ArrayList<>();
+
+        InputStream input = this.getClass().getResourceAsStream(this.fileName);
+        InputStreamReader isr = new InputStreamReader(input);
+        BufferedReader reader = new BufferedReader(isr);
+        String line = null;
+        while ((line = reader.readLine()) != null) {
+            values.add(line);
+        }
+
+        return values;
+    }
 }
