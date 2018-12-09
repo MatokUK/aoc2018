@@ -35,6 +35,7 @@ public class Reader
         ArrayList<String> values = new ArrayList<>();
 
         InputStream input = this.getClass().getResourceAsStream(this.fileName);
+        System.out.println(input);
         InputStreamReader isr = new InputStreamReader(input);
         BufferedReader reader = new BufferedReader(isr);
         String line = null;
