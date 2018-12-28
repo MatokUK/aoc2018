@@ -18,7 +18,7 @@ public class Solution {
     }
 
     public Integer partI(String fileName) throws IOException {
-        uk.matok.aoc2018.Reader reader = new uk.matok.aoc2018.Reader(fileName);
+        Reader reader = new Reader(fileName);
 
         ArrayList<Integer> values = reader.read();
         Integer sum = 0;
@@ -30,7 +30,7 @@ public class Solution {
     }
 
     public Integer partII(String fileName) throws IOException {
-        uk.matok.aoc2018.Reader reader = new Reader(fileName);
+        Reader reader = new Reader(fileName);
 
         ArrayList<Integer> values = reader.read();
         HashSet<Integer> frequency = new HashSet<>();
