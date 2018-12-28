@@ -1,4 +1,4 @@
-package uk.matok.aoc2018;
+package uk.matok.aoc2018.day05;
 
 public class Day5Polymer {
     private StringBuilder polymer;

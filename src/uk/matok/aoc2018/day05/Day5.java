@@ -1,5 +1,7 @@
-package uk.matok.aoc2018;
+package uk.matok.aoc2018.day05;
 
+
+import uk.matok.aoc2018.Reader;
 
 public class Day5 {
     public static void main(String... args) {
