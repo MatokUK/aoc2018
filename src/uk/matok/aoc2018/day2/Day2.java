@@ -1,4 +1,6 @@
-package uk.matok.aoc2018;
+package uk.matok.aoc2018.day2;
+
+import uk.matok.aoc2018.Reader;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,17 +1,15 @@
 package uk.matok.aoc2018.day3;
 
-import uk.matok.aoc2018.day3.Day3Claim;
-
 import java.util.HashSet;
 import java.util.Set;
 
-public class Day3Fabric {
+public class Fabric {
     private Integer width;
     private Integer height;
     private int[][] grid;
     private Set<Integer> claims;
 
-    public Day3Fabric(Integer width, Integer height)
+    public Fabric(Integer width, Integer height)
     {
         this.width = width;
         this.height = height;
@@ -19,7 +17,7 @@ public class Day3Fabric {
         this.claims = new HashSet<>();
     }
 
-    public void cut(Day3Claim claim)
+    public void cut(Claim claim)
     {
         this.claims.add(claim.getId());
         for (int x = claim.getX(); x < claim.getXOffset(); x++) {

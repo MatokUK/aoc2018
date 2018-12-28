@@ -1,7 +1,5 @@
 package uk.matok.aoc2018.day10;
 
-import uk.matok.aoc2018.Day3Claim;
-
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

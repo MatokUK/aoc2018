@@ -3,14 +3,14 @@ package uk.matok.aoc2018.day3;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Day3Claim {
+public class Claim {
     private Integer id;
     private Integer x;
     private Integer y;
     private Integer width;
     private Integer height;
 
-    public Day3Claim(Integer id, Integer x, Integer y, Integer width, Integer height)
+    public Claim(Integer id, Integer x, Integer y, Integer width, Integer height)
     {
         this.id = id;
         this.x = x;
@@ -39,7 +39,7 @@ public class Day3Claim {
         return y + width;
     }
 
-    public static Day3Claim fromString(String line) throws Exception
+    public static Claim fromString(String line) throws Exception
     {
         String pattern = "#(\\d+)\\s@\\s(\\d+),(\\d+):\\s(\\d+)x(\\d+)";
         Pattern r = Pattern.compile(pattern);
@@ -48,7 +48,7 @@ public class Day3Claim {
         if (!m.find()) {
             throw new Exception("wot " +line );
         }
-        return new Day3Claim(Integer.valueOf(m.group(1)), Integer.valueOf(m.group(3)), Integer.valueOf(m.group(2)), Integer.valueOf(m.group(4)), Integer.valueOf(m.group(5)));
+        return new Claim(Integer.valueOf(m.group(1)), Integer.valueOf(m.group(3)), Integer.valueOf(m.group(2)), Integer.valueOf(m.group(4)), Integer.valueOf(m.group(5)));
     }
 
     @Override
