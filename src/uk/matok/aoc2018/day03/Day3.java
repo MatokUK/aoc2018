@@ -1,4 +1,4 @@
-package uk.matok.aoc2018.day3;
+package uk.matok.aoc2018.day03;
 
 import uk.matok.aoc2018.Reader;
 
