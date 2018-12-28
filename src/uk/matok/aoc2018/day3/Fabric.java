@@ -1,4 +1,6 @@
-package uk.matok.aoc2018;
+package uk.matok.aoc2018.day3;
+
+import uk.matok.aoc2018.day3.Day3Claim;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,7 +1,5 @@
-package uk.matok.aoc2018;
+package uk.matok.aoc2018.day3;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

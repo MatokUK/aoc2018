@@ -1,6 +1,5 @@
 package uk.matok.aoc2018;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Day3 {
