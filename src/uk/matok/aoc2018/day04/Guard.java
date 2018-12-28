@@ -1,8 +1,8 @@
-package uk.matok.aoc2018;
+package uk.matok.aoc2018.day04;
 
 import java.util.Date;
 
-public class Day4Guard {
+public class Guard {
     private Boolean awake;
     private Integer id;
     private Date sleepFrom;
@@ -10,7 +10,7 @@ public class Day4Guard {
     private Integer sleepFromMinute;
     private Integer sleepToMinute;
 
-    public Day4Guard(Integer id) {
+    public Guard(Integer id) {
         this.id = id;
         this.awake = true;
         this.sleepMinutes = 0;
@@ -56,8 +56,7 @@ public class Day4Guard {
         }
     }
 
-    public String toString()
-    {
-        return "#" + id + " ---> " + sleepMinutes;
+    public String toString() {
+        return "#" + id + " ---> " + sleepMinutes + " (" + sleepFrom + ") (" + sleepFromMinute + "-" + sleepToMinute + ")";
     }
 }

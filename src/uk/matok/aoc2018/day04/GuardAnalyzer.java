@@ -1,33 +1,37 @@
-package uk.matok.aoc2018;
+package uk.matok.aoc2018.day04;
 
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Day4GuardAnalyzer {
+public class GuardAnalyzer {
     private SortedMap<Date, String> data;
-    HashMap<Integer, Long> guardIdToSleepTime;
+    private HashMap<Integer, Long> guardIdToSleepTime;
+    private HashMap<Integer, HashMap<Integer, Integer>> sleepFrequency;
 
-    public Day4GuardAnalyzer(SortedMap<Date, String> data) {
+    public GuardAnalyzer(SortedMap<Date, String> data) {
         this.data = data;
         this.guardIdToSleepTime = new HashMap<>();
+        this.sleepFrequency = new HashMap<>();
+
+        for (Integer i = 0; i < 60; i++) {
+            sleepFrequency.put(i, new HashMap<>());
+        }
     }
 
     public void analyze() {
-
         Integer guardId;
-        Day4Guard guard = new Day4Guard(0);
+        Guard guard = new Guard(0);
 
         for (Map.Entry<Date, String> entry : data.entrySet()) {
             String op = entry.getValue().substring(19,24);
 
             if (op.equals("Guard")) {
                 guardId = parseGuardId(entry.getValue());
-              //  System.out.println(guard);
                 if (guard.getSleepMinutes() > 0) {
                     writeDown(guard);
                 }
-                guard = new Day4Guard(guardId);
+                guard = new Guard(guardId);
             } else if (op.equals("falls")) {
                 guard.asleep(entry.getKey());
             } else if (op.equals("wakes")) {
@@ -53,9 +57,60 @@ public class Day4GuardAnalyzer {
         countMostRepeatingMinute(guardId);
     }
 
+    public HashMap<Integer, GuardSleeping> sleepMinuteFrequency() {
+        Integer guardId;
+        Guard guard = new Guard(0);
+
+        for (Map.Entry<Date, String> entry : data.entrySet()) {
+            String op = entry.getValue().substring(19,24);
+
+            if (op.equals("Guard")) {
+                guardId = parseGuardId(entry.getValue());
+                //  System.out.println(guard);
+                if (guard.getSleepMinutes() > 0) {
+                    writeDown(guard);
+                }
+                guard = new Guard(guardId);
+            } else if (op.equals("falls")) {
+                guard.asleep(entry.getKey());
+            } else if (op.equals("wakes")) {
+                guard.wakeUp(entry.getKey());
+                countFrequency(guard.getId(), guard.getFrom(), guard.getTo());
+            }
+        }
+
+        return maxSleepingFrequency();
+    }
+
+    private void countFrequency(Integer guardId, Integer from , Integer to) {
+        for (Integer minute = from; minute <= to; minute++) {
+            sleepFrequency.get(minute).putIfAbsent(guardId, 0);
+            sleepFrequency.get(minute).replace(guardId, 1 + sleepFrequency.get(minute).get(guardId));
+        }
+    }
+
+    private HashMap<Integer, GuardSleeping> maxSleepingFrequency() {
+        HashMap<Integer, GuardSleeping> result = new HashMap<>();
+
+        for (Map.Entry<Integer, HashMap<Integer, Integer>> entry: sleepFrequency.entrySet()) {
+            Integer max = -1;
+            Map.Entry<Integer, Integer> maxE = null;
+            for (Map.Entry<Integer, Integer> guardSleepFrequency: entry.getValue().entrySet()) {
+                if (guardSleepFrequency.getValue() > max) {
+                    max = guardSleepFrequency.getValue();
+                    maxE = guardSleepFrequency;
+                }
+            }
+            if (maxE != null) {
+                result.put(entry.getKey(), new GuardSleeping(maxE.getKey(), maxE.getValue()));
+            }
+        }
+        return result;
+    }
+
     private Integer countMostRepeatingMinute(Integer id)
     {
-        Day4Guard guard = new Day4Guard(0);
+        Guard guard = new Guard(0);
         SortedMap<Integer, Integer> freq = new TreeMap<>();
 
         for (Map.Entry<Date, String> entry : data.entrySet()) {
@@ -63,9 +118,8 @@ public class Day4GuardAnalyzer {
 
             if (op.equals("Guard")) {
                 Integer guardId = parseGuardId(entry.getValue());
-               // System.out.println(guard);
 
-                guard = new Day4Guard(guardId);
+                guard = new Guard(guardId);
             } else if (op.equals("falls")) {
                 guard.asleep(entry.getKey());
             } else if (op.equals("wakes")) {
@@ -73,8 +127,6 @@ public class Day4GuardAnalyzer {
             }
 
             if (guard.getSleepMinutes() > 0 && id.equals(guard.getId())) {
-                //System.out.println("Fuct");
-                //System.out.println(guard.getId() + ": " + guard.getFrom() + "-" + guard.getTo());
                 for (Integer minute = guard.getFrom(); minute <= guard.getTo(); minute++) {
                     freq.putIfAbsent(minute, 0);
                     freq.put(minute, freq.get(minute) + 1);
@@ -97,7 +149,7 @@ public class Day4GuardAnalyzer {
     }
 
 
-    private void writeDown(Day4Guard guard)
+    private void writeDown(Guard guard)
     {
         Integer guardId = guard.getId();
         if (guardIdToSleepTime.containsKey(guardId)) {
