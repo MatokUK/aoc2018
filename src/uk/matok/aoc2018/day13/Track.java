@@ -22,8 +22,8 @@ public class Track {
 
     private void initCarts() {
         carts = new ArrayList<>();
-        for (int x = 0; x < grid.length; x++) {
-            for (int y = 0; y < grid[x].length; y++) {
+        for (int y = 0; y < grid.length; y++) {
+            for (int x = 0; x < grid[y].length; x++) {
                 Cart cart = getCartFromGrid(x, y);
                 if (null != cart) {
                     carts.add(cart);
@@ -33,7 +33,7 @@ public class Track {
     }
 
     private Cart getCartFromGrid(int x, int y) {
-        char cell = grid[x][y];
+        char cell = grid[y][x];
         if (cell == '>' || cell == '<' || cell == '^' || cell == 'v') {
             return new Cart(x, y, cell);
         }
@@ -43,7 +43,7 @@ public class Track {
 
     public void advance() {
         for (Cart cart: carts) {
-            char cell = grid[cart.peekX()][cart.peekY()];
+            char cell = grid[cart.peekY()][cart.peekX()];
             cart.advance(cell);
         }
     }
@@ -96,7 +96,7 @@ public class Track {
     public void printGrid() {
         for (int x = 0; x < grid.length; x++) {
             for (int y = 0; y < grid[x].length; y++) {
-                if (carts.contains(new Cart(x, y, '>'))) {
+                if (null != carts && carts.contains(new Cart(x, y, '>'))) {
                     System.out.print("\u001B[31mC\u001B[0m");
                 } else {
                     System.out.print(grid[x][y]);

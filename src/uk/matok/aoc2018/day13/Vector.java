@@ -16,11 +16,11 @@ public class Vector {
     }
 
     public int peekX() {
-        if (vector == '^') {
+        if (vector == '<') {
             return x-1;
         }
 
-        if (vector == 'v') {
+        if (vector == '>') {
             return x+1;
         }
 
@@ -28,11 +28,11 @@ public class Vector {
     }
 
     public int peekY() {
-        if (vector == '>') {
+        if (vector == 'v') {
             return y+1;
         }
 
-        if (vector == '<') {
+        if (vector == '^') {
             return y-1;
         }
 
@@ -43,16 +43,16 @@ public class Vector {
     public void advance() {
         switch (vector) {
             case '>':
-                y++;
+                x++;
                 break;
             case '<':
-                y--;
-                break;
-            case '^':
                 x--;
                 break;
+            case '^':
+                y--;
+                break;
             case 'v':
-                x++;
+                y++;
                 break;
         }
     }
